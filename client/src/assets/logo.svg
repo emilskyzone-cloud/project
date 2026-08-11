@@ -1,0 +1,17 @@
+<svg width="240" height="40" viewBox="0 0 240 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aimakevision">
+  <defs>
+    <linearGradient id="brand" x1="4" y1="4" x2="48" y2="38" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="word" x1="60" y1="8" x2="232" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#A5B4FC"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="4" width="48" height="32" rx="12" fill="url(#brand)"/>
+  <path d="M14 24.5 20.8 14h4.4L32 24.5M17 21h12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="39" cy="14" r="3" fill="#C4B5FD"/>
+  <circle cx="39" cy="26" r="3" fill="#E0E7FF"/>
+  <text x="59" y="29" fill="url(#word)" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="750" letter-spacing="-1">Aimakevision</text>
+</svg>
