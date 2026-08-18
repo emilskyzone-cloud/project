@@ -75,7 +75,7 @@ export default function Hero() {
                                 viewport={{ once: true }}
                                 transition={{ type: "spring", stiffness: 250, damping: 70, mass: 1, delay: 0.3 }}
                             >
-                                <a href="/" className="w-full sm:w-auto">
+                                <a href="/generate" className="w-full sm:w-auto">
                                     <PrimaryButton className="max-sm:w-full py-3 px-7">
                                         Start generating — it's free
                                         <ArrowRightIcon className="size-4" />
