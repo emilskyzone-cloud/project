@@ -1,5 +1,6 @@
 import {Request, Response} from 'express'
 import * as Sentry from "@sentry/node";
+import { clerkClient } from '@clerk/express';
 import { prisma } from '../configs/prisma.js';
 
 // Get User Credits
@@ -9,10 +10,29 @@ export const getUserCredits = async (req: Request, res: Response) => {
         const {userId} = req.auth();
         if(!userId) {return res.status(401).json({message: 'Unauthorized'})}
 
-        const user = await prisma.user.findUnique({
+        let user = await prisma.user.findUnique({
             where: {id: userId}
         })
-        res.json({credits: user?.credits})
+        if (!user) {
+            const profile = await clerkClient.users.getUser(userId);
+            const email = profile.primaryEmailAddress?.emailAddress ||
+                profile.emailAddresses[0]?.emailAddress;
+            if (!email) {
+                return res.status(409).json({message: 'Please add an email address to your account'});
+            }
+            user = await prisma.user.upsert({
+                where: {id: userId},
+                update: {},
+                create: {
+                    id: userId,
+                    email,
+                    name: [profile.firstName, profile.lastName].filter(Boolean).join(' ') || 'User',
+                    image: profile.imageUrl || '',
+                    credits: 5,
+                },
+            });
+        }
+        res.json({credits: user.credits})
 
     } catch (error: any) {
         Sentry.captureException(error);
