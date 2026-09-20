@@ -87,25 +87,23 @@ export const footerLinks = [
     {
         title: "Quick Links",
         links: [
-            { name: "Home", url: "#" },
-            { name: "Features", url: "#" },
-            { name: "Pricing", url: "#" },
-            { name: "FAQ", url: "#" }
+            { name: "Home", url: "/" },
+            { name: "Features", url: "/#features" },
+            { name: "Pricing", url: "/plans" },
+            { name: "Community", url: "/community" }
         ]
     },
     {
         title: "Legal",
         links: [
-            { name: "Privacy Policy", url: "#" },
-            { name: "Terms of Service", url: "#" }
+            { name: "Privacy Policy", url: "/privacy" },
+            { name: "Terms of Service", url: "/terms" }
         ]
     },
     {
         title: "Connect",
         links: [
-            { name: "Twitter", url: "#" },
-            { name: "LinkedIn", url: "#" },
-            { name: "GitHub", url: "#" }
+            { name: "Email", url: "mailto:ai@tyrveai.com" }
         ]
     }
 ];
