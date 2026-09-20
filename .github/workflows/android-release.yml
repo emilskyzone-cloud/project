@@ -27,9 +27,36 @@ jobs:
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"
       - name: Build release bundle
         run: gradle --no-daemon :app:bundleRelease
-      - name: Upload unsigned bundle
+      - name: Sign release bundle and preserve upload key
+        run: |
+          mkdir -p release
+          UPLOAD_PASSWORD="$(openssl rand -base64 24 | tr -d '\n/=+')"
+          keytool -genkeypair -v \
+            -keystore release/aimaker-upload-key.jks \
+            -storepass "$UPLOAD_PASSWORD" \
+            -keypass "$UPLOAD_PASSWORD" \
+            -alias aimaker-upload \
+            -keyalg RSA -keysize 4096 -validity 10000 \
+            -dname "CN=Aimaker, OU=Mobile, O=Aimaker, L=Miami, ST=Florida, C=US"
+          jarsigner -verbose \
+            -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore release/aimaker-upload-key.jks \
+            -storepass "$UPLOAD_PASSWORD" \
+            -keypass "$UPLOAD_PASSWORD" \
+            app/build/outputs/bundle/release/app-release.aab \
+            aimaker-upload
+          cp app/build/outputs/bundle/release/app-release.aab release/Aimaker-release.aab
+          printf '%s\n' \
+            'Aimaker Google Play upload key' \
+            'Alias: aimaker-upload' \
+            "Store password: $UPLOAD_PASSWORD" \
+            "Key password: $UPLOAD_PASSWORD" \
+            'BACK UP THIS FILE AND THE .jks FILE. You need them for every future update.' \
+            > release/UPLOAD-KEY-CREDENTIALS.txt
+          jarsigner -verify -verbose -certs release/Aimaker-release.aab
+      - name: Upload Play release package
         uses: actions/upload-artifact@v4
         with:
-          name: aimaker-release-unsigned
-          path: android/app/build/outputs/bundle/release/app-release.aab
+          name: aimaker-google-play-release
+          path: android/release/*
           if-no-files-found: error
