@@ -44,7 +44,7 @@ export default function Hero() {
                                     ))}
                                 </div>
                                 <span className="text-xs text-gray-200/90">
-                                    Trusted by 10,000+ creators
+                                    Built for ecommerce teams and creators
                                 </span>
                             </motion.a>
 
@@ -174,7 +174,7 @@ export default function Hero() {
 
                                         <span className="relative inline-flex size-2 rounded-full bg-green-600" />
                                     </div>
-                                    +20 more
+                                    Product image • Lifestyle creative • Video
                                 </motion.div>
                             </div>
                         </motion.div>
