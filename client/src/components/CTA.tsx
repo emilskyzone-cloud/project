@@ -23,7 +23,7 @@ export default function CTA() {
                             viewport={{ once: true }}
                             transition={{ type: "spring", stiffness: 250, damping: 70, mass: 1, delay: 0.2 }}
                         >
-                            Join thousands of brands creating viral content with Aimakevision. No credit card required. Start creating now.
+                            Turn an existing product photo into new creative directions without arranging another photoshoot. Start with Aimakevision today.
                         </motion.p>
                         <motion.div
                             initial={{ y: 60, opacity: 0 }}
