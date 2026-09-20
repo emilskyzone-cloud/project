@@ -1,0 +1,1 @@
+Initial release of Aimaker for Android, including product-ad image generation, image-to-video creation, project history, and synchronized Aimaker accounts.
