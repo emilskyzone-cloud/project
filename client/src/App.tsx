@@ -10,6 +10,7 @@ import MyGenerations from './pages/MyGenerations';
 import Community from './pages/Community';
 import Plans from './pages/Plans';
 import Loading from './pages/Loading';
+import Legal from './pages/Legal';
 import {Toaster} from 'react-hot-toast'
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
 				<Route path='/community' element={<Community />}/>
 				<Route path='/plans' element={<Plans />}/>
 				<Route path='/loading' element={<Loading />}/>
+				<Route path='/privacy' element={<Legal type='privacy' />}/>
+				<Route path='/terms' element={<Legal type='terms' />}/>
 				
 			</Routes>
 
