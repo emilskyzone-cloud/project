@@ -24,7 +24,7 @@ jobs:
           gradle-version: "9.5.0"
       - name: Install Android SDK
         run: |
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37" "build-tools;36.0.0"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"
       - name: Build release bundle
         run: gradle --no-daemon :app:bundleRelease
       - name: Upload unsigned bundle
