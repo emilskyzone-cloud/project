@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "tech.aimaker.app"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "tech.aimaker.app"
