@@ -34,7 +34,7 @@ The Blueprint sets `VITE_BASEURL` to the API's Render URL. The backend's `CLIENT
 
 ## Database migration
 
-The API start command runs `npx prisma migrate deploy` before starting Express. The new migration adds a durable Clerk webhook event table. The handler records the Svix delivery ID and a unique paid payment-attempt ID, so retries or repeated paid notifications cannot grant the same payment's credits twice. It also sets the default starter-credit balance to five. Existing user balances are not changed by this default update.
+The API runs `npm run start:render` before starting Express. This executes an idempotent additive setup script: it creates the webhook-idempotency table and unique payment-attempt index if they do not exist, and sets the default for *new* User rows to five credits without changing existing balances. The handler records the Svix delivery ID and a unique paid payment-attempt ID, so retries or repeated paid notifications cannot grant the same payment's credits twice.\n\n**Do not run `prisma migrate deploy` against the current Aimaker Production database yet.** That database already contains the User and Project tables, but it has no `_prisma_migrations` history; replaying the initial migration would try to create those tables again. The current Render startup deliberately does not invoke Prisma Migrate. Baseline the existing schema separately before adopting normal Prisma migrations.
 
 Back up the existing PostgreSQL database before deploying schema changes. Do not point this service at a new empty database.
 
