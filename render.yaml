@@ -3,15 +3,18 @@ services:
     name: aimaker-api-free
     runtime: node
     plan: free
+    region: singapore
     branch: render-free-deploy
     rootDir: server
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: npm ci
+    startCommand: npx prisma migrate deploy && npm start
     healthCheckPath: /
-    autoDeploy: true
+    autoDeployTrigger: commit
     envVars:
       - key: NODE_ENV
         value: production
+      - key: CLIENT_ORIGINS
+        value: https://aimaker.tech,https://www.aimaker.tech,https://aimaker-web-free.onrender.com,http://localhost:5173
       - key: DATABASE_URL
         sync: false
       - key: CLERK_PUBLISHABLE_KEY
@@ -23,4 +26,21 @@ services:
       - key: CLOUDINARY_URL
         sync: false
       - key: GOOGLE_CLOUD_API_KEY
+        sync: false
+
+  - type: web
+    name: aimaker-web-free
+    runtime: static
+    branch: render-free-deploy
+    buildCommand: cd client && npm ci && npm run build
+    staticPublishPath: client/dist
+    autoDeployTrigger: commit
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_BASEURL
+        value: https://aimaker-api-free.onrender.com
+      - key: VITE_CLERK_PUBLISHABLE_KEY
         sync: false
