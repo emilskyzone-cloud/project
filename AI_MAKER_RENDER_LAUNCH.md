@@ -66,6 +66,8 @@ Only after the Render URLs pass the smoke tests:
 4. After the API custom domain is verified, change the frontend service's `VITE_BASEURL` to `https://api.aimaker.tech` and trigger a frontend redeploy.
 5. Keep the Render `onrender.com` URLs available as a fallback until the custom domain works.
 
+Before publishing the legal pages, confirm the support email and US mailing address currently present in the source are valid business contact details you control. Do not publish placeholder or third-party contact information as your own.
+
 ## Customer launch smoke tests
 
 - Open the frontend on a new browser session and create a test account.
@@ -78,6 +80,12 @@ Only after the Render URLs pass the smoke tests:
 - Verify both a repeated Svix delivery and a separate notification for the same payment attempt do not grant credits a second time.
 - Test account deletion, privacy/terms links, and contact details.
 - Confirm the support email and legal mailing address shown on the website are accurate for the business.
+
+## AI usage costs and pricing safety
+
+The checked source currently calls Google's `gemini-3.1-flash-image` for images and `veo-3.1-generate-preview` for video. Google's current published API pricing shows no free tier for these model versions: a 1K image is listed at about **$0.067**, while Veo 3.1 standard video is listed at **$0.40 per second** at 720p/1080p. These charges are separate from Render hosting, Cloudinary storage/transfer, and payment fees. Recalculate the unit economics against the actual Clerk plan prices and credit grants before enabling live checkout. In particular, the current app charges 5 credits for an image and 10 credits for a video; those amounts are not proof that the plans are profitable.
+
+Do not switch to a cheaper model automatically: that changes quality and may change the customer promise. Decide the model tier and credit schedule deliberately, then test real outputs and reconcile actual provider billing.
 
 ## Important free-tier limits
 
