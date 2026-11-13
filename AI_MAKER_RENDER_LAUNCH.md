@@ -32,6 +32,10 @@ For `aimaker-web-free`:
 
 The Blueprint sets `VITE_BASEURL` to the API's Render URL. The backend's `CLIENT_ORIGINS` already includes the Render frontend URL and the Aimaker custom domain.
 
+## Existing database discovered
+
+A read-only check on November 13, 2026 found a Neon project named **Aimaker Production**, on its `main` branch with database `neondb`. Its `User` and `Project` columns match the current app schema; an additional `PaymentGrant` table also exists. The checked tables currently contain zero rows. This appears to be the intended database, but confirm it is the database the current AI Maker site should use before entering its connection string into Render. Use the pooled application connection string from that Neon project's console; never paste the connection string into GitHub or chat.
+
 ## Database migration
 
 The API runs `npm run start:render` before starting Express. This executes an idempotent additive setup script: it creates the webhook-idempotency table and unique payment-attempt index if they do not exist, and sets the default for *new* User rows to five credits without changing existing balances. The handler records the Svix delivery ID and a unique paid payment-attempt ID, so retries or repeated paid notifications cannot grant the same payment's credits twice.\n\n**Do not run `prisma migrate deploy` against the current Aimaker Production database yet.** That database already contains the User and Project tables, but it has no `_prisma_migrations` history; replaying the initial migration would try to create those tables again. The current Render startup deliberately does not invoke Prisma Migrate. Baseline the existing schema separately before adopting normal Prisma migrations.
