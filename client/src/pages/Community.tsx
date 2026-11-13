@@ -7,7 +7,8 @@ import toast from "react-hot-toast"
 
 const Community = () => {
   const [projects, setProjects] = useState<Project[]>([])
-  const [loading, setLoading] = useState(true)\n  const [loadError, setLoadError] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
 
   const fetchProjects = async ()=>{
     try {
