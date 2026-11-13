@@ -16,7 +16,7 @@ export default function Footer() {
                     <div>
                         <img src={assets.logo} alt="logo" className="h-8" />
                         <p className="max-w-[410px] mt-6 text-sm leading-relaxed">
-                            Create viral content in seconds. Aimakevision turns product and model photos into polished lifestyle imagery and short-form videos.
+                            Create viral content in seconds. AI Maker turns product and model photos into polished lifestyle imagery and short-form videos.
                         </p>
                     </div>
 
@@ -46,7 +46,7 @@ export default function Footer() {
                 </div>
 
                 <p className="py-4 text-center text-sm text-gray-400">
-                    © {new Date().getFullYear()} Aimakevision. All rights reserved. Contact: ai@tyrveai.com
+                    © {new Date().getFullYear()} AI Maker. All rights reserved. Contact: ai@tyrveai.com
                 </p>
             </div>
         </motion.footer>
