@@ -7,7 +7,7 @@ services:
     branch: render-free-deploy
     rootDir: server
     buildCommand: npm ci --include=dev
-    startCommand: npx prisma migrate deploy && npm start
+    startCommand: npm run start:render
     healthCheckPath: /
     autoDeployTrigger: checksPass
     envVars:
