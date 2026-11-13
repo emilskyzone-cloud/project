@@ -55,12 +55,16 @@ const Genetator = () => {
            headers: { Authorization: `Bearer ${token}` }
         })
 
-        toast.success(data.message)
+        toast.success('Image generated successfully')
         navigate('/result/' + data.projectId)
 
       } catch (error: any) {
         setIsGenerating(false);
-        toast.error(error?.response?.data?.message || error.message)
+        const message = error?.response?.data?.message ||
+          (error?.code === 'ERR_NETWORK'
+            ? 'Cannot reach the AI Maker API. The free server may be waking up; please wait about a minute and retry.'
+            : error?.message || 'Image generation failed. Please retry.')
+        toast.error(message)
       }
   }
 
