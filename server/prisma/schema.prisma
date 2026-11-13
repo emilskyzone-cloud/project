@@ -1,8 +1,5 @@
 // This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// learn more about it at https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client"
@@ -22,15 +19,14 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
-  projects     Project[]
+  projects  Project[]
 }
 
 model Project {
   id                 String   @id @default(uuid())
   name               String
   userId             String
-  productName        String   
+  productName        String
   productDescription String   @default("")
   userPrompt         String   @default("")
   aspectRatio        String   @default("9:16")
@@ -45,7 +41,11 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model ProcessedWebhookEvent {
+  id          String   @id
+  type        String
+  processedAt DateTime @default(now())
+}
