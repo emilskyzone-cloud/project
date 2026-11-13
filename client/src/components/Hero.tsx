@@ -12,11 +12,11 @@ export default function Hero() {
     const galleryStripImages = [assets.aiemilHero, assets.aiemilHeadphones, assets.aiemilCamera];
 
     const trustedLogosText = [
-        'Adobe',
-        'Figma',
-        'Canva',
-        'Shopify',
-        'Webflow'
+        'Product imagery',
+        'Lifestyle creatives',
+        'Ecommerce campaigns',
+        'Social media content',
+        'Short-form video'
     ];
 
     return (
@@ -54,7 +54,7 @@ export default function Hero() {
                                 viewport={{ once: true }}
                                 transition={{ type: "spring", stiffness: 250, damping: 70, mass: 1, delay: 0.1 }}
                             >
-                                Create viral content <br />
+                                Turn product photos into <br />
                                 <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-300 to-indigo-400">
                                      in seconds
                                 </span>
@@ -77,14 +77,14 @@ export default function Hero() {
                             >
                                 <a href="/generate" className="w-full sm:w-auto">
                                     <PrimaryButton className="max-sm:w-full py-3 px-7">
-                                        Start generating — it's free
+                                        Try 5 free credits
                                         <ArrowRightIcon className="size-4" />
                                     </PrimaryButton>
                                 </a>
 
-                                <GhostButton className="max-sm:w-full max-sm:justify-center py-3 px-5">
+                                <GhostButton onClick={() => window.location.assign('/community')} className="max-sm:w-full max-sm:justify-center py-3 px-5">
                                     <PlayIcon className="size-4" />
-                                    Watch demo
+                                    See examples
                                 </GhostButton>
                             </motion.div>
 
@@ -97,9 +97,9 @@ export default function Hero() {
                                 <div className="flex items-center gap-2 p-2 px-3 sm:px-6.5 hover:bg-white/3 transition-colors">
                                     <ZapIcon className="size-4 text-sky-500" />
                                     <div>
-                                        <div>Seconds to create</div>
+                                        <div>One creative workflow</div>
                                         <div className="text-xs text-gray-400">
-                                            Optimized social formats
+                                            Images and short-form video
                                         </div>
                                     </div>
                                 </div>
@@ -109,9 +109,9 @@ export default function Hero() {
                                 <div className="flex items-center gap-2 p-2 px-3 sm:px-6.5 hover:bg-white/3 transition-colors">
                                     <CheckIcon className="size-4 text-cyan-500" />
                                     <div>
-                                        <div>Commercial rights</div>
+                                        <div>Review before publishing</div>
                                         <div className="text-xs text-gray-400">
-                                            Use anywhere, no fuss
+                                            Check your asset permissions
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@ export default function Hero() {
 
                                         <span className="relative inline-flex size-2 rounded-full bg-green-600" />
                                     </div>
-                                    Product image • Lifestyle creative • Video
+                                    Product photo • Lifestyle creative • Video
                                 </motion.div>
                             </div>
                         </motion.div>
