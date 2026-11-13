@@ -45,7 +45,8 @@ model Project {
 }
 
 model ProcessedWebhookEvent {
-  id          String   @id
-  type        String
-  processedAt DateTime @default(now())
+  id                String   @id
+  type              String
+  paymentAttemptId  String?  @unique
+  processedAt       DateTime @default(now())
 }
