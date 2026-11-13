@@ -10,7 +10,11 @@ services:
     startCommand: npm run start:render
     healthCheckPath: /
     autoDeployTrigger: checksPass
+    domains:
+      - api.aimaker.tech
     envVars:
+      - key: NODE_VERSION
+        value: 24.20.0
       - key: NODE_ENV
         value: production
       - key: CLIENT_ORIGINS
@@ -35,6 +39,8 @@ services:
     buildCommand: cd client && npm ci --include=dev && npm run build
     staticPublishPath: client/dist
     autoDeployTrigger: checksPass
+    domains:
+      - aimaker.tech
     routes:
       - type: rewrite
         source: /*
