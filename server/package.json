@@ -7,7 +7,8 @@
     "postinstall": "npx prisma generate",
     "start": "tsx server.ts",
     "server": "nodemon --exec tsx server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start:render": "tsx scripts/ensure-schema.ts && npm start"
   },
   "keywords": [],
   "author": "",
