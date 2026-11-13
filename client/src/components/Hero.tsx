@@ -56,7 +56,7 @@ export default function Hero() {
                             >
                                 Turn product photos into <br />
                                 <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-300 to-indigo-400">
-                                     in seconds
+                                     lifestyle content
                                 </span>
                             </motion.h1>
 
