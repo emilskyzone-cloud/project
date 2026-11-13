@@ -1,0 +1,84 @@
+# AI Maker — free Render deployment
+
+This branch prepares both parts of AI Maker for a free Render deployment:
+
+- `aimaker-api-free`: Node/Express API from `server/`
+- `aimaker-web-free`: Vite/React static frontend from `client/`
+
+The production branch is not changed. Deploy this branch first and test it on its Render-provided URLs before moving the custom domain.
+
+## Deploy
+
+1. Sign in to Render and open the Blueprint dashboard: https://dashboard.render.com/blueprints
+2. Choose **New Blueprint Instance** and connect `emilskyzone-cloud/project`.
+3. Select branch `render-free-deploy` and the repository-root `render.yaml`.
+4. During initial setup, provide the secret values listed below. Keep them in Render's environment-variable UI; do not commit them to GitHub.
+5. Create the Blueprint and wait for both services to report a successful deployment.
+
+## Required environment variables
+
+For `aimaker-api-free`:
+
+- `DATABASE_URL`: the existing production PostgreSQL connection string. Reuse the database that already contains AI Maker customer/project data. Do **not** replace it with a temporary database.
+- `CLERK_PUBLISHABLE_KEY`: the Clerk production publishable key.
+- `CLERK_SECRET_KEY`: the matching Clerk production secret key.
+- `CLERK_WEBHOOK_SIGNING_SECRET`: the signing secret for the Clerk webhook endpoint.
+- `CLOUDINARY_URL`: the Cloudinary connection URL used for uploaded and generated media.
+- `GOOGLE_CLOUD_API_KEY`: the Google AI API key used by image and video generation.
+
+For `aimaker-web-free`:
+
+- `VITE_CLERK_PUBLISHABLE_KEY`: the same Clerk publishable key used by the API.
+
+The Blueprint sets `VITE_BASEURL` to the API's Render URL. The backend's `CLIENT_ORIGINS` already includes the Render frontend URL and the Aimaker custom domain.
+
+## Database migration
+
+The API start command runs `npx prisma migrate deploy` before starting Express. The new migration adds a durable Clerk webhook event table, allowing the backend to acknowledge duplicate Svix deliveries without granting credits twice. It also sets the default starter-credit balance to five. Existing user balances are not changed by this default update.
+
+Back up the existing PostgreSQL database before deploying schema changes. Do not point this service at a new empty database.
+
+## Clerk setup
+
+In the Clerk production instance:
+
+1. Add the Render frontend URL to allowed origins / redirect URLs during testing.
+2. Add the custom site URL after the domain is moved.
+3. Configure a webhook endpoint:
+   - Temporary endpoint: `https://aimaker-api-free.onrender.com/api/clerk`
+   - Subscribe to `user.created`, `user.updated`, `user.deleted`, and `paymentAttempt.updated`.
+   - Copy that endpoint's signing secret into `CLERK_WEBHOOK_SIGNING_SECRET`.
+4. Confirm the public Clerk Billing plan slugs are exactly `pro` and `premium`. The current webhook grants 80 credits for `pro` and 240 for `premium`.
+
+Use Clerk's test/development billing setup to test checkout and credit grants before enabling live payments. Confirm the production instance is connected to the correct Stripe account.
+
+## Custom domain cutover
+
+Only after the Render URLs pass the smoke tests:
+
+1. Add `api.aimaker.tech` as a custom domain to the API service in Render.
+2. Add `aimaker.tech` (and optionally `www.aimaker.tech`) to the static frontend service.
+3. Copy the exact DNS records Render displays into the DNS provider for `aimaker.tech`. Remove conflicting old records only when you are ready to cut traffic over.
+4. After the API custom domain is verified, change the frontend service's `VITE_BASEURL` to `https://api.aimaker.tech` and trigger a frontend redeploy.
+5. Keep the Render `onrender.com` URLs available as a fallback until the custom domain works.
+
+## Customer launch smoke tests
+
+- Open the frontend on a new browser session and create a test account.
+- Confirm the new account receives five credits, not 20.
+- Upload two image files and generate an image.
+- Confirm the project appears in My Generations and the result URL is hosted by Cloudinary.
+- Refresh the result page and confirm the image remains available.
+- Run a video test only after checking the provider cost and your plan margins.
+- Complete a test checkout and verify credits are granted exactly once after the paid webhook.
+- Verify a repeated webhook delivery does not grant credits a second time.
+- Test account deletion, privacy/terms links, and contact details.
+- Confirm the support email and legal mailing address shown on the website are accurate for the business.
+
+## Important free-tier limits
+
+Render's free web service sleeps after 15 minutes without inbound traffic and can take about a minute to wake. Its local filesystem is temporary. The app uses Cloudinary for permanent media storage and the existing PostgreSQL database for durable records, but free Render hosting is best suited to a demo or limited beta, not a reliability guarantee for paying customers. Do not use a free Render Postgres database for this app: Render says free Postgres instances expire after 30 days.
+
+Free hosting does **not** make AI generation free. The backend currently calls Google's paid image/video models; API usage can incur charges. Set customer plan prices and credit allowances so they cover the model, storage, payment, and support costs before accepting live payments.
+
+This guide is a deployment checklist, not proof that the service is deployed. A live customer launch is complete only after the services are deployed, secrets are entered, domain and Clerk webhooks are configured, and the smoke tests pass.
