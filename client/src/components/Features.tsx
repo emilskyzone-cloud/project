@@ -12,7 +12,7 @@ export default function Features() {
                 <Title
                     title="Features"
                     heading="Built for modern brands"
-                    description="Aimakevision instantly produces professional lifestyle imagery and short-form videos optimized for commercials and Reels."
+                    description="Create a polished lifestyle image from a product photo and a model photo, then turn the finished image into a short-form video."
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
