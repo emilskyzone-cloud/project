@@ -9,7 +9,7 @@ services:
     buildCommand: npm ci --include=dev
     startCommand: npx prisma migrate deploy && npm start
     healthCheckPath: /
-    autoDeployTrigger: commit
+    autoDeployTrigger: checksPass
     envVars:
       - key: NODE_ENV
         value: production
@@ -34,7 +34,7 @@ services:
     branch: render-free-deploy
     buildCommand: cd client && npm ci --include=dev && npm run build
     staticPublishPath: client/dist
-    autoDeployTrigger: commit
+    autoDeployTrigger: checksPass
     routes:
       - type: rewrite
         source: /*
