@@ -23,7 +23,7 @@ export default function CTA() {
                             viewport={{ once: true }}
                             transition={{ type: "spring", stiffness: 250, damping: 70, mass: 1, delay: 0.2 }}
                         >
-                            Turn an existing product photo into new creative directions without arranging another photoshoot. Start with Aimakevision today.
+                            Turn an existing product photo into a fresh lifestyle creative. Start with AI Maker today.
                         </motion.p>
                         <motion.div
                             initial={{ y: 60, opacity: 0 }}
@@ -31,7 +31,7 @@ export default function CTA() {
                             viewport={{ once: true }}
                             transition={{ type: "spring", stiffness: 250, damping: 70, mass: 1, delay: 0.3 }}
                         >
-                            <GhostButton className="px-8 py-3 gap-2">
+                            <GhostButton onClick={() => window.location.assign("/generate")} className="px-8 py-3 gap-2">
                                 Start Creating Now <ArrowRightIcon size={20} />
                             </GhostButton>
                         </motion.div>
