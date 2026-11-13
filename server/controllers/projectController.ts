@@ -90,19 +90,19 @@ export const createProject = async (req: Request, res: Response) => {
             safetySettings: [
                 {
                     category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-                    threshold: HarmBlockThreshold.OFF,
+                    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
                 },
                 {
                     category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                    threshold: HarmBlockThreshold.OFF,
+                    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
                 },
                 {
                     category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-                    threshold: HarmBlockThreshold.OFF,
+                    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
                 },
                 {
                     category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-                    threshold: HarmBlockThreshold.OFF,
+                    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
                 },
             ],
         };
