@@ -69,12 +69,6 @@ const Result = () => {
             // The server may still be processing after a lost connection.
             // Reload its state before enabling another paid generation.
             await fetchProjectData();
-        } finally {
-            // fetchProjectData updates this to true again if the server
-            // reports that generation is still in progress.
-            if (!project?.isGenerating) {
-                setIsGenerating(false);
-            }
         }
     };
 
