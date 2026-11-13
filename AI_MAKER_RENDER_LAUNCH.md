@@ -34,7 +34,7 @@ The Blueprint sets `VITE_BASEURL` to the API's Render URL. The backend's `CLIENT
 
 ## Database migration
 
-The API start command runs `npx prisma migrate deploy` before starting Express. The new migration adds a durable Clerk webhook event table, allowing the backend to acknowledge duplicate Svix deliveries without granting credits twice. It also sets the default starter-credit balance to five. Existing user balances are not changed by this default update.
+The API start command runs `npx prisma migrate deploy` before starting Express. The new migration adds a durable Clerk webhook event table. The handler records the Svix delivery ID and a unique paid payment-attempt ID, so retries or repeated paid notifications cannot grant the same payment's credits twice. It also sets the default starter-credit balance to five. Existing user balances are not changed by this default update.
 
 Back up the existing PostgreSQL database before deploying schema changes. Do not point this service at a new empty database.
 
@@ -71,7 +71,7 @@ Only after the Render URLs pass the smoke tests:
 - Refresh the result page and confirm the image remains available.
 - Run a video test only after checking the provider cost and your plan margins.
 - Complete a test checkout and verify credits are granted exactly once after the paid webhook.
-- Verify a repeated webhook delivery does not grant credits a second time.
+- Verify both a repeated Svix delivery and a separate notification for the same payment attempt do not grant credits a second time.
 - Test account deletion, privacy/terms links, and contact details.
 - Confirm the support email and legal mailing address shown on the website are accurate for the business.
 
