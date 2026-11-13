@@ -6,7 +6,7 @@ services:
     region: singapore
     branch: render-free-deploy
     rootDir: server
-    buildCommand: npm ci
+    buildCommand: npm ci --include=dev
     startCommand: npx prisma migrate deploy && npm start
     healthCheckPath: /
     autoDeployTrigger: commit
@@ -32,7 +32,7 @@ services:
     name: aimaker-web-free
     runtime: static
     branch: render-free-deploy
-    buildCommand: cd client && npm ci && npm run build
+    buildCommand: cd client && npm ci --include=dev && npm run build
     staticPublishPath: client/dist
     autoDeployTrigger: commit
     routes:
