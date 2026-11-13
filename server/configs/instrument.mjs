@@ -1,6 +1,11 @@
 import * as Sentry from "@sentry/node";
 
-Sentry.init({
-    dsn: "________sentry_dsn________",
-    sendDefaultPii: true,
-});
+const dsn = process.env.SENTRY_DSN;
+
+if (dsn) {
+    Sentry.init({
+        dsn,
+        // Avoid collecting personal data by default.
+        sendDefaultPii: false,
+    });
+}
