@@ -5,3 +5,6 @@ CREATE TABLE "ProcessedWebhookEvent" (
     "processedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "ProcessedWebhookEvent_pkey" PRIMARY KEY ("id")
 );
+
+-- Match the five-credit signup allowance used by the account bootstrap flow.
+ALTER TABLE "User" ALTER COLUMN "credits" SET DEFAULT 5;
