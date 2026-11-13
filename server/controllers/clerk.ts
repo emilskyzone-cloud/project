@@ -17,7 +17,14 @@ const clerkWebhooks = async (req: Request, res: Response) => {
         // transaction as the side effect so one payment cannot grant credits twice.
         await prisma.$transaction(async (tx) => {
             await tx.processedWebhookEvent.create({
-                data: { id: eventId, type },
+                data: {
+                    id: eventId,
+                    type,
+                    paymentAttemptId:
+                        type === "paymentAttempt.updated" && data?.status === "paid"
+                            ? data?.id
+                            : null,
+                },
             });
 
             switch (type) {
