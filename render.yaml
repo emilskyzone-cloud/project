@@ -47,6 +47,6 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_BASEURL
-        value: https://aimaker-api-free.onrender.com
+        value: https://api.aimaker.tech
       - key: VITE_CLERK_PUBLISHABLE_KEY
         sync: false
